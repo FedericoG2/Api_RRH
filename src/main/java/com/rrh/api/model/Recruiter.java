@@ -21,3 +21,4 @@ public class Recruiter {
     @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
     private List<Job_vacancy> jobVacancies;
 }
+//
