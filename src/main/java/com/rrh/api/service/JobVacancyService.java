@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class JobVacancyService implements IJobVacancyService {
     @Autowired
-    IJobVancyRepository jobVancyRepository;
+   private IJobVancyRepository jobVancyRepository;
     @Override
     public List<Job_vacancy> getVacancies() {
         List<Job_vacancy> vacancies = jobVancyRepository.findAll();
