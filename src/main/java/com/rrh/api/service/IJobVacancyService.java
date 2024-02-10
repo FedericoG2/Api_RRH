@@ -12,4 +12,6 @@ public interface IJobVacancyService {
     public void saveVacancy(Job_vacancy vacancy);
 
     public void deleteVacancy(Long id);
+
+    public void editVacancy(Job_vacancy vacancy);
 }
