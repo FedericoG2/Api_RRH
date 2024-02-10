@@ -18,7 +18,6 @@ public class Recruiter {
     private String name;
     private String lastname;
     private String company;
-    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Job_vacancy> jobVacancies;
 }
-//

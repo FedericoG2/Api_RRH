@@ -25,8 +25,8 @@ public class Job_vacancy {
     private int interviewed;
     private int Successful_interviewees;
 
-    @ManyToOne
-    @JoinColumn(name = "recruiter_id")
-    private Recruiter recruiter;
+//    @ManyToOne
+//    @JoinColumn(name = "recruiter_id")
+//    private Recruiter recruiter;
 
 }
