@@ -6,27 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RecruiterService implements IRecruiterService {
     @Autowired
     private IRecruiterRepository recruiterRepository;
+
     @Override
     public List<Recruiter> getRecruiters() {
-        List<Recruiter> recruiters = recruiterRepository.findAll();
-        return recruiters;
+        return recruiterRepository.findAll();
     }
 
     @Override
     public Recruiter findRecruiter(Long id) {
-        Recruiter recruiter = recruiterRepository.findById(id).orElse(null);
-        return null;
+        Optional<Recruiter> optionalRecruiter = recruiterRepository.findById(id);
+        return optionalRecruiter.orElse(null);
     }
 
     @Override
     public void saveRecruiter(Recruiter recruiter) {
         recruiterRepository.save(recruiter);
-
     }
 
     @Override
@@ -36,6 +36,6 @@ public class RecruiterService implements IRecruiterService {
 
     @Override
     public void editRecruiter(Recruiter recruiter) {
-        this.saveRecruiter(recruiter);
+        saveRecruiter(recruiter);
     }
 }
