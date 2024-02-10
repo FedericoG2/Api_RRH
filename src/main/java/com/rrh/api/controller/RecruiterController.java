@@ -12,10 +12,11 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
+@RequestMapping("/api/recruiters")
 public class RecruiterController {
     @Autowired
     private IRecruiterService recruiterService;
-    @GetMapping("/recruiters")
+    @GetMapping
     public ResponseEntity<List<Recruiter>> getRecruiters() {
         try {
             List<Recruiter> recruiters = recruiterService.getRecruiters();
@@ -26,7 +27,7 @@ public class RecruiterController {
         }
     }
 
-    @PostMapping("/recruiter/crear")
+    @PostMapping
     public ResponseEntity<String> saveRecruiter(@RequestBody Recruiter recruiter) {
         try {
             recruiterService.saveRecruiter(recruiter);
@@ -37,7 +38,7 @@ public class RecruiterController {
         }
     }
 
-    @DeleteMapping("/recruiter/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteRecruiter(@PathVariable Long id) {
         try {
             recruiterService.deleteRecruiter(id);
@@ -47,7 +48,7 @@ public class RecruiterController {
                     .body("Error al eliminar el reclutador: " + e.getMessage());
         }
     }
-    @PutMapping("/recruiter/editar")
+    @PutMapping
     public ResponseEntity<Recruiter> editRecruiter(@RequestBody Recruiter recruiter) {
         try {
             recruiterService.editRecruiter(recruiter);

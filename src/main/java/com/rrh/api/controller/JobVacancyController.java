@@ -12,11 +12,12 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
+@RequestMapping("/api/vacancies")
 public class JobVacancyController {
     @Autowired
     private IJobVacancyService jobVacancyService;
 
-    @GetMapping("/vacantes")
+    @GetMapping
     public ResponseEntity<List<Job_vacancy>> getVacancies() {
         try {
             List<Job_vacancy> vacancies = jobVacancyService.getVacancies();
@@ -28,7 +29,7 @@ public class JobVacancyController {
         }
     }
 
-    @PostMapping("/vacante/crear")
+    @PostMapping
     public ResponseEntity<String> postVacancy(@RequestBody Job_vacancy vacancy) {
         try {
             jobVacancyService.saveVacancy(vacancy);
@@ -40,7 +41,7 @@ public class JobVacancyController {
         }
     }
 
-    @DeleteMapping("/vacante/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVacancy(@PathVariable Long id) {
         try {
             jobVacancyService.deleteVacancy(id);
@@ -52,7 +53,7 @@ public class JobVacancyController {
         }
     }
 
-    @PutMapping("/vacante/editar")
+    @PutMapping
     public ResponseEntity<Job_vacancy> editVacancy(@RequestBody Job_vacancy vacancy) {
         try {
             jobVacancyService.editVacancy(vacancy);
