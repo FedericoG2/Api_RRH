@@ -3,9 +3,12 @@ package com.rrh.api.controller;
 import com.rrh.api.model.Recruiter;
 import com.rrh.api.service.IRecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -13,24 +16,46 @@ public class RecruiterController {
     @Autowired
     private IRecruiterService recruiterService;
     @GetMapping("/recruiters")
-    public List<Recruiter> getRecruiters(){
-        List<Recruiter> recruiters = recruiterService.getRecruiters();
-        return recruiters;
+    public ResponseEntity<List<Recruiter>> getRecruiters() {
+        try {
+            List<Recruiter> recruiters = recruiterService.getRecruiters();
+            return ResponseEntity.ok(recruiters);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.emptyList());
+        }
     }
+
     @PostMapping("/recruiter/crear")
-    public String saveRecruiter(@RequestBody Recruiter recruiter){
-        recruiterService.saveRecruiter(recruiter);
-        return "Recruiter creado con exito";
+    public ResponseEntity<String> saveRecruiter(@RequestBody Recruiter recruiter) {
+        try {
+            recruiterService.saveRecruiter(recruiter);
+            return ResponseEntity.ok("Recruiter creado con éxito");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al crear el reclutador: " + e.getMessage());
+        }
     }
+
     @DeleteMapping("/recruiter/eliminar/{id}")
-    public String deleteRecruiter(@PathVariable Long id){
-        recruiterService.deleteRecruiter(id);
-        return "Recruiter eliminado";
+    public ResponseEntity<String> deleteRecruiter(@PathVariable Long id) {
+        try {
+            recruiterService.deleteRecruiter(id);
+            return ResponseEntity.ok("Recruiter eliminado exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al eliminar el reclutador: " + e.getMessage());
+        }
     }
     @PutMapping("/recruiter/editar")
-    public Recruiter editRecruiter(@RequestBody Recruiter recruiter){
-        recruiterService.editRecruiter(recruiter);
-        Recruiter findRecruiter = recruiterService.findRecruiter(recruiter.getId());
-        return findRecruiter;
+    public ResponseEntity<Recruiter> editRecruiter(@RequestBody Recruiter recruiter) {
+        try {
+            recruiterService.editRecruiter(recruiter);
+            Recruiter updatedRecruiter = recruiterService.findRecruiter(recruiter.getId());
+            return ResponseEntity.ok(updatedRecruiter);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
     }
 }
