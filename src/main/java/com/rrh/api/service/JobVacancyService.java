@@ -1,5 +1,6 @@
 package com.rrh.api.service;
 
+import com.rrh.api.dto.PercentageDTO;
 import com.rrh.api.model.Job_vacancy;
 import com.rrh.api.repository.IJobVacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +40,18 @@ public class JobVacancyService implements IJobVacancyService {
     public void editVacancy(Job_vacancy vacancy) {
         saveVacancy(vacancy);
     }
+
+    @Override
+    public PercentageDTO calculatePercentage(Long id) {
+        Job_vacancy vacancy = this.findVacancy(id);
+        int applicants = vacancy.getNumber_applicants();
+        int interviewed = vacancy.getInterviewed();
+        double percentage = ((double) interviewed / applicants) * 100;
+        percentage = Math.round(percentage * 100.0) / 100.0;
+        return new PercentageDTO(percentage);
+    }
+
+
+
+
 }

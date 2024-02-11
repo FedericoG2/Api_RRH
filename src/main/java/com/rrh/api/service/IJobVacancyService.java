@@ -1,5 +1,6 @@
 package com.rrh.api.service;
 
+import com.rrh.api.dto.PercentageDTO;
 import com.rrh.api.model.Job_vacancy;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface IJobVacancyService {
     public void deleteVacancy(Long id);
 
     public void editVacancy(Job_vacancy vacancy);
+
+    PercentageDTO calculatePercentage(Long id);
 }
