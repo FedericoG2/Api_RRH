@@ -1,5 +1,6 @@
 package com.rrh.api.controller;
 
+import com.rrh.api.dto.PercentageDTO;
 import com.rrh.api.model.Job_vacancy;
 import com.rrh.api.service.IJobVacancyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,19 @@ public class JobVacancyController {
                     .body(null);
         }
     }
+    @GetMapping("/statics/{id}")
+    public ResponseEntity<PercentageDTO> getStatics(@PathVariable Long id) {
+        try {
+            PercentageDTO percentageDTO = jobVacancyService.calculatePercentage(id);
+            return ResponseEntity.ok(percentageDTO);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
+    }
+
+
 
 
 }
