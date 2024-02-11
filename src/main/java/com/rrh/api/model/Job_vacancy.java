@@ -19,14 +19,13 @@ public class Job_vacancy {
     private String title;
     private String work_modality;
     private List<String> technologies;
-    private List<String> requirements;
-    private List<String> countries;
+    private String requirements;
+    private int latam_applicants;
+    private int usa_applicants;
+    private int europe_applicants;
+    private int asia_applicants;
     private int number_applicants;
     private int interviewed;
     private int Successful_interviewees;
-
-//    @ManyToOne
-//    @JoinColumn(name = "recruiter_id")
-//    private Recruiter recruiter;
 
 }
