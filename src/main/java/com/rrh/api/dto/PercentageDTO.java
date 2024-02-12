@@ -8,5 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PercentageDTO {
-    private double percentage;
+    private double percentageInterviewed;
+    private double percentageSuccessful;
+    private double percentageLatamApplicants;
+    private double percentageUsaApplicants;
+    private double percentageEuropeApplicants;
+    private double percentageAsiaApplicants;
+
 }
