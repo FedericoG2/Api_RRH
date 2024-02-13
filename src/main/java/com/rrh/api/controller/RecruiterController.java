@@ -2,10 +2,12 @@ package com.rrh.api.controller;
 
 import com.rrh.api.model.Recruiter;
 import com.rrh.api.service.IRecruiterService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -27,11 +29,22 @@ public class RecruiterController {
         }
     }
 
+
     @PostMapping
-    public ResponseEntity<String> saveRecruiter(@RequestBody Recruiter recruiter) {
+    public ResponseEntity<String> saveRecruiter(@Valid @RequestBody Recruiter recruiter, BindingResult bindingResult) {
         try {
-            recruiterService.saveRecruiter(recruiter);
-            return ResponseEntity.ok("Recruiter creado con éxito");
+            if (bindingResult.hasErrors()) {
+
+                if (bindingResult.getFieldError() != null) {
+                    return ResponseEntity.badRequest().body(bindingResult.getFieldError().getDefaultMessage());
+                } else {
+
+                    return ResponseEntity.badRequest().body("Revise los campos");
+                }
+            } else {
+                recruiterService.saveRecruiter(recruiter);
+                return ResponseEntity.ok("Recruiter creado con éxito");
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error al crear el reclutador: " + e.getMessage());
